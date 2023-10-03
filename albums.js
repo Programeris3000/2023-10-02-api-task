@@ -16,43 +16,33 @@ albumTitle.textContent = 'Album: '
 
 
 async function init(){
-const albumsFunction = await albums()
+  const albumsFunction = await albums()
 
-albumsFunction.forEach(album=>{
-const listItem = document.createElement('li')
-const linkItem = document.createElement('a')
-linkItem.textContent = `(${album.user.name}) ${album.id}. ${album.title} (${album.photos.length} photos) `
-
-
-album.photos.forEach(photo=>{
-console.log(photo.url)
-const linkImage = document.createElement('img')
-linkImage.src = ('')
-linkItem.append(linkImage)
-})
+  albumsFunction.forEach(album=>{
+    const listItem = document.createElement('li')
+    const linkItem = document.createElement('a')
+    linkItem.textContent = `(${album.user.name}) ${album.id}. ${album.title} (${album.photos.length} photos) `
 
 
-listItem.append(linkItem)
-albumList.append(listItem)
-})
+  album.photos.forEach(photo=>{
+    console.log(photo.url)
+    const linkImage = document.createElement('img')
+    linkImage.src = ('')
+    linkItem.append(linkImage)
+  })
 
 
-albumDiv.append(albumTitle, albumList)
-albumsWrapper.append(albumDiv)
+    listItem.append(linkItem)
+    albumList.append(listItem)
+  })
+
+
+  albumDiv.append(albumTitle, albumList)
+  albumsWrapper.append(albumDiv)
 }
 
 
-
-
-
-
-
-
 init()
-
-
-
-
 
 async function albums(){
   const res = await fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_limit=25&_embed=photos')
@@ -60,8 +50,3 @@ async function albums(){
   return albums
 }
 
-async function photo(){
-  const res = await fetch('https://jsonplaceholder.typicode.com/albums?_expand=user&_limit=25&_embed=photos')
-  const albums = res.json()
-  return albums
-}
